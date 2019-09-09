@@ -23,7 +23,7 @@ module Nitra
           self.name.split("::").last.downcase
         end
 
-        def files(patterns)
+        def files(configuration, patterns)
           Dir[*patterns].sort_by {|f| File.size(f)}.reverse
         end
       end

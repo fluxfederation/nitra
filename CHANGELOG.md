@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+### Updated
+- Proactively sort splittable rspec files so all splittable files are processed first
+
 ## [1.0.15] - 2020-04-07
 ### Updated
 - Support parsing results when using the --retry flag with cucumber
