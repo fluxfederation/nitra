@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.14] - 2019-12-06
+### Updated
+- Avoid an explosion in the worker thread when splitting a spec returns no parts to run
+
 ## [1.0.13] - 2019-03-18
 ### Updated
 - Support rspec configs which have the expose DSL globally setting disabled
