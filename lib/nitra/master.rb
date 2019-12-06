@@ -156,7 +156,7 @@ protected
         progress.file_progress(tests, failures, failure, data["text"])
         formatter.print_progress
 
-        if parts_to_run
+        if parts_to_run&.any?
           debug "#{data["on"]} split #{data["filename"]} into #{parts_to_run.join '+'}"
           files_by_framework[data["framework"]] ||= []
           files_by_framework[data["framework"]].concat(parts_to_run)
