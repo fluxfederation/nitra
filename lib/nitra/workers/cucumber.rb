@@ -66,23 +66,30 @@ module Nitra::Workers
       else
         raise RetryException if cuke_runtime.failure? && retry_run?
 
-        if m = io.string.match(/(\d+) scenarios?.+$/)
-          test_count = m[1].to_i
-          if m = io.string.match(/\d+ scenarios? \(.*(\d+) [failed|undefined].*\)/)
-            failure_count = m[1].to_i
-          else
-            failure_count = 0
-          end
-        else
-          test_count = failure_count = 0
-        end
-
-        {
-          "test_count"    => test_count,
-          "failure_count" => failure_count,
-          "failure"       => cuke_runtime.failure?,
-        }
+        parse_results(io)
       end
+    end
+
+    def parse_results(io)
+      # 3 scenarios (1 flaky, 1 failed, 1 passed)
+      if m = io.string.match(/(\d+) scenarios?.+$/)
+        test_count = m[1].to_i
+        if m = io.string.match(/\d+ scenarios? \((.+)\)/)
+          failed_results = m[1].split(',').map(&:strip).map { |s| s.split(' ') }.find { |results| %w[failed undefined].include?(results.last) }
+
+          failure_count = failed_results.nil? ? 0 : failed_results.first.to_i
+        else
+          failure_count = 0
+        end
+      else
+        test_count = failure_count = 0
+      end
+
+      {
+        "test_count"    => test_count,
+        "failure_count" => failure_count,
+        "failure"       => cuke_runtime.failure?,
+      }
     end
 
     def clean_up
