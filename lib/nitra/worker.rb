@@ -300,7 +300,11 @@ module Nitra
         # append the name of the worker file without an extension before the output file's extension
         base = filename_without_extension(filename)
         extension = Pathname(template_output_file).extname
-        Pathname(template_output_file).sub_ext("_#{base}#{extension}").to_s
+        path = Pathname(template_output_file).sub_ext("_#{base}#{extension}")
+
+        FileUtils.mkdir_p(path.dirname) unless File.directory?(path.dirname)
+
+        path.to_s
       end
 
       def filename_without_extension(filename)
