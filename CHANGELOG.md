@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.15] - 2020-04-07
+### Updated
+- Support parsing results when using the --retry flag with cucumber
+
 ## [1.0.14] - 2019-12-06
 ### Updated
 - Avoid an explosion in the worker thread when splitting a spec returns no parts to run
