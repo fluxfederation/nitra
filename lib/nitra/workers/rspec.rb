@@ -27,6 +27,18 @@ module Nitra::Workers
       EOS
     end
 
+    # sort spec files so splittable files get split first
+    def files(configuration, patterns)
+      sorted_files = super(configuration, patterns)
+
+      return sorted_files unless configuration.split_rspec_files
+
+      # [[splittable_file], [not_splittable_file]].flatten
+      sorted_files.partition do |file|
+        configuration.split_rspec_files_regex && file.name =~ configuration.split_rspec_files_regex
+      end.flatten
+    end
+
     ##
     # Run an rspec file.
     #

@@ -110,7 +110,7 @@ protected
 
   def load_files_from_framework_list
     @files_by_framework = configuration.frameworks.inject({}) do |result, (framework_name, framework_patterns)|
-      files = Nitra::Workers::Worker.worker_classes[framework_name].files(framework_patterns)
+      files = Nitra::Workers::Worker.worker_classes[framework_name].files(configuration, framework_patterns)
       result[framework_name] = files unless files.empty?
       result
     end
