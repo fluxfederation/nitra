@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 ### Updated
+
+## [1.0.16] - 2020-04-15
+### Updated
 - Proactively sort splittable rspec files so all splittable files are processed first
 
 ## [1.0.15] - 2020-04-07
